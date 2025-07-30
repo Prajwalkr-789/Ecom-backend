@@ -1,6 +1,6 @@
 const cloudinary = require('../config/cloudinary');
 
-export const uploadToCloudinary = (buffer, folder = 'ecommerce') => {
+const uploadToCloudinary = (buffer, folder = 'ecommerce') => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream(
       {
@@ -22,3 +22,4 @@ export const uploadToCloudinary = (buffer, folder = 'ecommerce') => {
     ).end(buffer);
   });
 };
+module.exports = uploadToCloudinary;
