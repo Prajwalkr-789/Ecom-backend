@@ -1,7 +1,8 @@
 const { body, query, validationResult } = require('express-validator');
 const  Product = require('../Models/product');
 const Category = require('../Models/category');
-const { uploadToCloudinary } = require('../utils/cloudinaryUpload');
+const uploadToCloudinary = require('../utils/cloudinaryUpload')
+
 const { Op } = require('sequelize');
 
 const getAllProducts = async (req, res) => {
