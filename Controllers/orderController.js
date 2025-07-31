@@ -76,7 +76,6 @@ const createOrder = async (req, res) => {
 
     const { shippingAddress } = req.body;
 
-    // Get cart items
     const cartItems = await Cart.findAll({
       where: { UserId: req.user.id },
       include: [Product],
@@ -88,7 +87,6 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ message: 'Cart is empty' });
     }
 
-    // Check stock availability
     for (const item of cartItems) {
       if (item.Product.stock < item.quantity) {
         await transaction.rollback();
@@ -98,19 +96,17 @@ const createOrder = async (req, res) => {
       }
     }
 
-    // Calculate total
     const totalAmount = cartItems.reduce((sum, item) => {
       return sum + (parseFloat(item.priceAtTime) * item.quantity);
     }, 0);
 
-    // Create order
+    
     const order = await Order.create({
       UserId: req.user.id,
       totalAmount,
       shippingAddress
     }, { transaction });
 
-    // Create order items and update stock
     for (const item of cartItems) {
       await OrderItem.create({
         OrderId: order.id,
@@ -120,13 +116,11 @@ const createOrder = async (req, res) => {
         productName: item.Product.name
       }, { transaction });
 
-      // Update product stock
       await item.Product.update({
         stock: item.Product.stock - item.quantity
       }, { transaction });
     }
 
-    // Clear cart
     await Cart.destroy({
       where: { UserId: req.user.id },
       transaction
@@ -134,7 +128,6 @@ const createOrder = async (req, res) => {
 
     await transaction.commit();
 
-    // Fetch the complete order
     const completeOrder = await Order.findByPk(order.id, {
       include: [{
         model: OrderItem,

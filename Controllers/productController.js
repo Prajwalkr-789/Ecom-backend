@@ -24,19 +24,16 @@ const getAllProducts = async (req, res) => {
     const offset = (page - 1) * limit;
     const where = { isActive: true };
 
-    // Filter by category
     if (category) {
       where.CategoryId = category;
     }
 
-    // Filter by price range
     if (minPrice || maxPrice) {
       where.price = {};
       if (minPrice) where.price[Op.gte] = minPrice;
       if (maxPrice) where.price[Op.lte] = maxPrice;
     }
 
-    // Search by name
     if (search) {
       where.name = {
         [Op.iLike]: `%${search}%`
@@ -98,7 +95,6 @@ const createProduct = async (req, res) => {
     const { name, description, price, stock, categoryId } = req.body;
     let imageUrl = null;
 
-    // Handle image upload
     if (req.file) {
       try {
         const result = await uploadToCloudinary(req.file.buffer, 'products');
@@ -150,7 +146,6 @@ const updateProduct = async (req, res) => {
 
     let imageUrl = product.imageUrl;
 
-    // Handle image upload
     if (req.file) {
       try {
         const result = await uploadToCloudinary(req.file.buffer, 'products');

@@ -5,7 +5,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
    ssl: {
       require: true,
-      rejectUnauthorized: false  // Important for self-signed certs like in Neon
+      rejectUnauthorized: false  
     },
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
   pool: {

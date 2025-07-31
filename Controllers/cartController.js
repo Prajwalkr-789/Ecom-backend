@@ -43,7 +43,6 @@ const addToCart = async (req, res) => {
       return res.status(400).json({ message: 'Insufficient stock' });
     }
 
-    // Check if item already in cart
     const existingCartItem = await Cart.findOne({
       where: {
         UserId: req.user.id,
