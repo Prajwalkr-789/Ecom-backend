@@ -50,8 +50,16 @@ This is a fully functional **E-Commerce API** built using **Node.js**, **Express
 │   └── swaggerConfig.js
 
 ```
+## Backend URL
+🌐 Base URL (Hosted on Render):
+[https://ecom-backend-5emk.onrender.com/](https://ecom-backend-5emk.onrender.com/)
+```txt
 
----
+Note: This backend is hosted on Render
+  It may take 20–30 seconds to respond to the first request after a period of inactivity.
+  After that, performance is normal.
+```
+
 
 ## 🚀 Getting Started
 
