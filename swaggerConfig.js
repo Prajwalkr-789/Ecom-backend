@@ -18,7 +18,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:8080/api', 
+        url: 'https://ecom-backend-5emk.onrender.com/api', 
       },
     ],
      components: {
