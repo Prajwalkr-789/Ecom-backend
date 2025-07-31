@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swaggerConfig');
 
 const { sequelize } = require('./Models/index');
 
@@ -25,6 +27,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
